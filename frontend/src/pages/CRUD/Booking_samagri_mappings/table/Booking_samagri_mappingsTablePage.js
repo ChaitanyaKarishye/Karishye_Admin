@@ -7,6 +7,6 @@ const Booking_samagri_mappingsTablePage = () => {
       <Booking_samagri_mappingsTable />
     </div>
   );
-};
+}
 
 export default Booking_samagri_mappingsTablePage;

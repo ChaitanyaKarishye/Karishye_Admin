@@ -7,6 +7,6 @@ const Puja_samagri_mappingsTablePage = () => {
       <Puja_samagri_mappingsTable />
     </div>
   );
-};
+}
 
 export default Puja_samagri_mappingsTablePage;

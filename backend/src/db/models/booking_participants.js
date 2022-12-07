@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   const booking_participants = sequelize.define(
     'booking_participants',
     {
@@ -14,16 +14,19 @@ module.exports = function (sequelize, DataTypes) {
         primaryKey: true,
       },
 
-      booking_id: {
+booking_id: {
         type: DataTypes.INTEGER,
+
       },
 
-      member_id: {
+member_id: {
         type: DataTypes.INTEGER,
+
       },
 
-      user_id: {
+user_id: {
         type: DataTypes.INTEGER,
+
       },
 
       importHash: {
@@ -40,6 +43,7 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   booking_participants.associate = (db) => {
+
     db.booking_participants.belongsTo(db.users, {
       as: 'createdBy',
     });
@@ -51,3 +55,4 @@ module.exports = function (sequelize, DataTypes) {
 
   return booking_participants;
 };
+

@@ -17,14 +17,14 @@ const actions = {
         type: 'PUJAS_FORM_FIND_STARTED',
       });
 
-      axios.get(`/pujas/${id}`).then((res) => {
+      axios.get(`/pujas/${id}`).then(res => {
         const record = res.data;
 
         dispatch({
           type: 'PUJAS_FORM_FIND_SUCCESS',
           payload: record,
         });
-      });
+      })
     } catch (error) {
       Errors.handle(error);
 
@@ -42,13 +42,13 @@ const actions = {
         type: 'PUJAS_FORM_CREATE_STARTED',
       });
 
-      axios.post('/pujas', { data: values }).then((res) => {
+      axios.post('/pujas', { data: values }).then(res => {
         dispatch({
           type: 'PUJAS_FORM_CREATE_SUCCESS',
         });
         showSnackbar({ type: 'success', message: 'Pujas created' });
         dispatch(push('/admin/pujas'));
-      });
+      })
     } catch (error) {
       Errors.handle(error);
 
@@ -58,13 +58,16 @@ const actions = {
     }
   },
 
-  doUpdate: (id, values, isProfile) => async (dispatch, getState) => {
+  doUpdate: (id, values, isProfile) => async (
+    dispatch,
+    getState,
+  ) => {
     try {
       dispatch({
         type: 'PUJAS_FORM_UPDATE_STARTED',
       });
 
-      await axios.put(`/pujas/${id}`, { id, data: values });
+      await axios.put(`/pujas/${id}`, {id, data: values});
 
       dispatch(doInit());
 

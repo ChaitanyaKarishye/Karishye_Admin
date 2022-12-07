@@ -7,6 +7,6 @@ const BookingsTablePage = () => {
       <BookingsTable />
     </div>
   );
-};
+}
 
 export default BookingsTablePage;

@@ -5,9 +5,7 @@ import { connect } from 'react-redux';
 
 async function selectList(query, limit) {
   const params = { query, limit };
-  const response = await axios.get(`/booking_samagri_mappings/autocomplete`, {
-    params,
-  });
+  const response = await axios.get(`/booking_samagri_mappings/autocomplete`, { params });
   return response.data;
 }
 
@@ -52,7 +50,10 @@ const Booking_samagri_mappingsSelectItem = (props) => {
     },
   };
 
-  const { form, ...rest } = props;
+  const {
+    form,
+    ...rest
+  } = props;
 
   return (
     <React.Fragment>
@@ -65,10 +66,12 @@ const Booking_samagri_mappingsSelectItem = (props) => {
       />
     </React.Fragment>
   );
-};
+}
 
 const select = (state) => ({
-  hasPermissionToCreate: state.booking_samagri_mappings.hasPermissionToCreate,
+  hasPermissionToCreate: state.booking_samagri_mappings.hasPermissionToCreate
 });
 
-export default connect(select)(Booking_samagri_mappingsSelectItem);
+export default connect(select)(
+  Booking_samagri_mappingsSelectItem,
+);

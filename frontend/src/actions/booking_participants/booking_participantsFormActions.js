@@ -17,14 +17,14 @@ const actions = {
         type: 'BOOKING_PARTICIPANTS_FORM_FIND_STARTED',
       });
 
-      axios.get(`/booking_participants/${id}`).then((res) => {
+      axios.get(`/booking_participants/${id}`).then(res => {
         const record = res.data;
 
         dispatch({
           type: 'BOOKING_PARTICIPANTS_FORM_FIND_SUCCESS',
           payload: record,
         });
-      });
+      })
     } catch (error) {
       Errors.handle(error);
 
@@ -42,16 +42,13 @@ const actions = {
         type: 'BOOKING_PARTICIPANTS_FORM_CREATE_STARTED',
       });
 
-      axios.post('/booking_participants', { data: values }).then((res) => {
+      axios.post('/booking_participants', { data: values }).then(res => {
         dispatch({
           type: 'BOOKING_PARTICIPANTS_FORM_CREATE_SUCCESS',
         });
-        showSnackbar({
-          type: 'success',
-          message: 'Booking_participants created',
-        });
+        showSnackbar({ type: 'success', message: 'Booking_participants created' });
         dispatch(push('/admin/booking_participants'));
-      });
+      })
     } catch (error) {
       Errors.handle(error);
 
@@ -61,13 +58,16 @@ const actions = {
     }
   },
 
-  doUpdate: (id, values, isProfile) => async (dispatch, getState) => {
+  doUpdate: (id, values, isProfile) => async (
+    dispatch,
+    getState,
+  ) => {
     try {
       dispatch({
         type: 'BOOKING_PARTICIPANTS_FORM_UPDATE_STARTED',
       });
 
-      await axios.put(`/booking_participants/${id}`, { id, data: values });
+      await axios.put(`/booking_participants/${id}`, {id, data: values});
 
       dispatch(doInit());
 
@@ -78,10 +78,7 @@ const actions = {
       if (isProfile) {
         showSnackbar({ type: 'success', message: 'Profile updated' });
       } else {
-        showSnackbar({
-          type: 'success',
-          message: 'Booking_participants updated',
-        });
+        showSnackbar({ type: 'success', message: 'Booking_participants updated' });
         dispatch(push('/admin/booking_participants'));
       }
     } catch (error) {

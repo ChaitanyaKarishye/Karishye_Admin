@@ -5,51 +5,69 @@ module.exports = class KarusersService {
   static async create(data, currentUser) {
     const transaction = await db.sequelize.transaction();
     try {
-      await KarusersDBApi.create(data, {
-        currentUser,
-        transaction,
-      });
+      await KarusersDBApi.create(
+        data,
+        {
+          currentUser,
+          transaction,
+        },
+      );
 
       await transaction.commit();
     } catch (error) {
       await transaction.rollback();
       throw error;
     }
-  }
+  };
   static async update(data, id, currentUser) {
     const transaction = await db.sequelize.transaction();
     try {
-      let karusers = await KarusersDBApi.findBy({ id }, { transaction });
+      let karusers = await KarusersDBApi.findBy(
+        {id},
+        {transaction},
+      );
 
       if (!karusers) {
-        throw new ValidationError('karusersNotFound');
+        throw new ValidationError(
+          'karusersNotFound',
+        );
       }
 
-      await KarusersDBApi.update(id, data, {
-        currentUser,
-        transaction,
-      });
+      await KarusersDBApi.update(
+        id,
+        data,
+        {
+          currentUser,
+          transaction,
+        },
+      );
 
       await transaction.commit();
       return karusers;
+
     } catch (error) {
       await transaction.rollback();
       throw error;
     }
-  }
+  };
 
   static async remove(id, currentUser) {
     const transaction = await db.sequelize.transaction();
 
     try {
       if (currentUser.role !== 'admin') {
-        throw new ValidationError('errors.forbidden.message');
+        throw new ValidationError(
+          'errors.forbidden.message',
+        );
       }
 
-      await KarusersDBApi.remove(id, {
-        currentUser,
-        transaction,
-      });
+      await KarusersDBApi.remove(
+        id,
+        {
+          currentUser,
+          transaction,
+        },
+      );
 
       await transaction.commit();
     } catch (error) {
@@ -58,3 +76,4 @@ module.exports = class KarusersService {
     }
   }
 };
+

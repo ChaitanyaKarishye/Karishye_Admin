@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   const puja_samagri_mappings = sequelize.define(
     'puja_samagri_mappings',
     {
@@ -14,16 +14,19 @@ module.exports = function (sequelize, DataTypes) {
         primaryKey: true,
       },
 
-      puja_id: {
+puja_id: {
         type: DataTypes.INTEGER,
+
       },
 
-      samagri_id: {
+samagri_id: {
         type: DataTypes.INTEGER,
+
       },
 
-      no_of_standard_qty: {
+no_of_standard_qty: {
         type: DataTypes.INTEGER,
+
       },
 
       importHash: {
@@ -40,6 +43,7 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   puja_samagri_mappings.associate = (db) => {
+
     db.puja_samagri_mappings.belongsTo(db.users, {
       as: 'createdBy',
     });
@@ -51,3 +55,4 @@ module.exports = function (sequelize, DataTypes) {
 
   return puja_samagri_mappings;
 };
+

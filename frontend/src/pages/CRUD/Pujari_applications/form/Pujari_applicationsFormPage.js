@@ -5,8 +5,15 @@ import actions from 'actions/pujari_applications/pujari_applicationsFormActions'
 import { connect } from 'react-redux';
 
 const Pujari_applicationsFormPage = (props) => {
-  const { dispatch, match, saveLoading, findLoading, record, currentUser } =
-    props;
+
+  const {
+    dispatch,
+    match,
+    saveLoading,
+    findLoading,
+    record,
+    currentUser
+  } = props;
 
   const [dispatched, setDispatched] = useState(false);
 
@@ -20,9 +27,9 @@ const Pujari_applicationsFormPage = (props) => {
 
   const doSubmit = (id, data) => {
     if (isEditing() || isProfile()) {
-      dispatch(actions.doUpdate(id, data, isProfile()));
+      dispatch(actions.doUpdate(id, data, isProfile()))
     } else {
-      dispatch(actions.doCreate(data));
+      dispatch(actions.doCreate(data))
     }
   };
 
@@ -35,29 +42,29 @@ const Pujari_applicationsFormPage = (props) => {
         const currentUserId = currentUser.user.id;
         dispatch(actions.doFind(currentUserId));
       } else {
-        dispatch(actions.doNew());
+        dispatch(actions.doNew())
       }
     }
     setDispatched(true);
-  }, [match, dispatch]);
+  }, [match, dispatch])
 
   return (
     <React.Fragment>
       {dispatched && (
         <Pujari_applicationsForm
-          saveLoading={saveLoading}
-          findLoading={findLoading}
-          currentUser={currentUser}
-          record={isEditing() || isProfile() ? record : {}}
-          isEditing={isEditing()}
-          isProfile={isProfile()}
-          onSubmit={doSubmit}
-          onCancel={() => dispatch(push('/admin/pujari_applications'))}
+        saveLoading={saveLoading}
+        findLoading={findLoading}
+        currentUser={currentUser}
+        record={(isEditing() || isProfile()) ? record : {}}
+        isEditing={isEditing()}
+        isProfile={isProfile()}
+        onSubmit={doSubmit}
+        onCancel={() => dispatch(push('/admin/pujari_applications'))}
         />
-      )}
+        )}
     </React.Fragment>
   );
-};
+}
 
 function mapStateToProps(store) {
   return {

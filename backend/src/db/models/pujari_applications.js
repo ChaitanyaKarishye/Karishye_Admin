@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   const pujari_applications = sequelize.define(
     'pujari_applications',
     {
@@ -14,72 +14,110 @@ module.exports = function (sequelize, DataTypes) {
         primaryKey: true,
       },
 
-      name: {
+name: {
         type: DataTypes.TEXT,
+
       },
 
-      surname: {
+surname: {
         type: DataTypes.TEXT,
+
       },
 
-      date_of_birth: {
+date_of_birth: {
         type: DataTypes.DATE,
+
       },
 
-      qualification: {
+qualification: {
         type: DataTypes.TEXT,
+
       },
 
-      experience_yrs: {
+experience_yrs: {
         type: DataTypes.INTEGER,
+
       },
 
-      address: {
+address: {
         type: DataTypes.TEXT,
+
       },
 
-      email_id: {
+email_id: {
         type: DataTypes.TEXT,
+
       },
 
-      phone_number: {
+phone_number: {
         type: DataTypes.TEXT,
+
       },
 
-      gender: {
+gender: {
         type: DataTypes.ENUM,
 
-        values: ['Male', 'Female', 'Other'],
+        values: [
+
+"Male",
+
+"Female",
+
+"Other"
+
+        ],
+
       },
 
-      application_status: {
+application_status: {
         type: DataTypes.ENUM,
 
-        values: ['Pending', 'Approved', 'Rejected', 'Suspended'],
+        values: [
+
+"Pending",
+
+"Approved",
+
+"Rejected",
+
+"Suspended"
+
+        ],
+
       },
 
-      language: {
+language: {
         type: DataTypes.ENUM,
 
-        values: ['Telugu', 'Other'],
+        values: [
+
+"Telugu",
+
+"Other"
+
+        ],
+
       },
 
-      online_pujas: {
+online_pujas: {
         type: DataTypes.BOOLEAN,
 
         allowNull: false,
         defaultValue: false,
+
       },
 
-      travel: {
+travel: {
         type: DataTypes.BOOLEAN,
 
         allowNull: false,
         defaultValue: false,
+
       },
 
-      city: {
+city: {
         type: DataTypes.TEXT,
+
       },
 
       importHash: {
@@ -96,6 +134,7 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   pujari_applications.associate = (db) => {
+
     db.pujari_applications.hasMany(db.file, {
       as: 'photo',
       foreignKey: 'belongsToId',
@@ -127,3 +166,4 @@ module.exports = function (sequelize, DataTypes) {
 
   return pujari_applications;
 };
+

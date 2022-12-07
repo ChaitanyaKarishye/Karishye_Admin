@@ -17,14 +17,14 @@ const actions = {
         type: 'BOOKINGS_FORM_FIND_STARTED',
       });
 
-      axios.get(`/bookings/${id}`).then((res) => {
+      axios.get(`/bookings/${id}`).then(res => {
         const record = res.data;
 
         dispatch({
           type: 'BOOKINGS_FORM_FIND_SUCCESS',
           payload: record,
         });
-      });
+      })
     } catch (error) {
       Errors.handle(error);
 
@@ -42,13 +42,13 @@ const actions = {
         type: 'BOOKINGS_FORM_CREATE_STARTED',
       });
 
-      axios.post('/bookings', { data: values }).then((res) => {
+      axios.post('/bookings', { data: values }).then(res => {
         dispatch({
           type: 'BOOKINGS_FORM_CREATE_SUCCESS',
         });
         showSnackbar({ type: 'success', message: 'Bookings created' });
         dispatch(push('/admin/bookings'));
-      });
+      })
     } catch (error) {
       Errors.handle(error);
 
@@ -58,13 +58,16 @@ const actions = {
     }
   },
 
-  doUpdate: (id, values, isProfile) => async (dispatch, getState) => {
+  doUpdate: (id, values, isProfile) => async (
+    dispatch,
+    getState,
+  ) => {
     try {
       dispatch({
         type: 'BOOKINGS_FORM_UPDATE_STARTED',
       });
 
-      await axios.put(`/bookings/${id}`, { id, data: values });
+      await axios.put(`/bookings/${id}`, {id, data: values});
 
       dispatch(doInit());
 

@@ -7,6 +7,6 @@ const Pujari_applicationsTablePage = () => {
       <Pujari_applicationsTable />
     </div>
   );
-};
+}
 
 export default Pujari_applicationsTablePage;

@@ -36,18 +36,17 @@ const bookingsRoutes = require('./routes/bookings');
 
 const options = {
   definition: {
-    openapi: '3.0.0',
-    info: {
-      version: '1.0.0',
-      title: 'Karishye_Admin',
-      description:
-        'Karishye_Admin Online REST API for Testing and Prototyping application. You can perform all major operations with your entities - create, delete and etc.',
-    },
+    openapi: "3.0.0",
+      info: {
+        version: "1.0.0",
+        title: "Karishye_Admin",
+        description: "Karishye_Admin Online REST API for Testing and Prototyping application. You can perform all major operations with your entities - create, delete and etc.",
+      },
     servers: [
       {
         url: config.swaggerUrl,
-        description: 'Development server',
-      },
+        description: "Development server",
+      }
     ],
     components: {
       securitySchemes: {
@@ -55,35 +54,28 @@ const options = {
           type: 'http',
           scheme: 'bearer',
           bearerFormat: 'JWT',
-        },
+        }
       },
       responses: {
         UnauthorizedError: {
-          description: 'Access token is missing or invalid',
-        },
-      },
+          description: "Access token is missing or invalid"
+        }
+      }
     },
-    security: [
-      {
-        bearerAuth: [],
-      },
-    ],
+    security: [{
+      bearerAuth: []
+    }]
   },
-  apis: ['./src/routes/*.js'],
+  apis: ["./src/routes/*.js"],
 };
 
 const specs = swaggerJsDoc(options);
-app.use(
-  '/api-docs',
-  function (req, res, next) {
+app.use('/api-docs', function (req, res, next) {
     swaggerUI.host = req.get('host');
-    next();
-  },
-  swaggerUI.serve,
-  swaggerUI.setup(specs),
-);
+    next()
+  }, swaggerUI.serve, swaggerUI.setup(specs))
 
-app.use(cors({ origin: true }));
+app.use(cors({origin: true}));
 require('./auth/auth');
 
 app.use(bodyParser.json());
@@ -91,73 +83,38 @@ app.use(bodyParser.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/file', fileRoutes);
 
-app.use(
-  '/api/users',
-  passport.authenticate('jwt', { session: false }),
-  usersRoutes,
-);
+app.use('/api/users', passport.authenticate('jwt', {session: false}), usersRoutes);
 
-app.use(
-  '/api/karusers',
-  passport.authenticate('jwt', { session: false }),
-  karusersRoutes,
-);
+app.use('/api/karusers', passport.authenticate('jwt', {session: false}), karusersRoutes);
 
-app.use(
-  '/api/booking_participants',
-  passport.authenticate('jwt', { session: false }),
-  booking_participantsRoutes,
-);
+app.use('/api/booking_participants', passport.authenticate('jwt', {session: false}), booking_participantsRoutes);
 
-app.use(
-  '/api/pujaris',
-  passport.authenticate('jwt', { session: false }),
-  pujarisRoutes,
-);
+app.use('/api/pujaris', passport.authenticate('jwt', {session: false}), pujarisRoutes);
 
-app.use(
-  '/api/pujari_applications',
-  passport.authenticate('jwt', { session: false }),
-  pujari_applicationsRoutes,
-);
+app.use('/api/pujari_applications', passport.authenticate('jwt', {session: false}), pujari_applicationsRoutes);
 
-app.use(
-  '/api/pujas',
-  passport.authenticate('jwt', { session: false }),
-  pujasRoutes,
-);
+app.use('/api/pujas', passport.authenticate('jwt', {session: false}), pujasRoutes);
 
-app.use(
-  '/api/puja_samagri_mappings',
-  passport.authenticate('jwt', { session: false }),
-  puja_samagri_mappingsRoutes,
-);
+app.use('/api/puja_samagri_mappings', passport.authenticate('jwt', {session: false}), puja_samagri_mappingsRoutes);
 
-app.use(
-  '/api/samagri',
-  passport.authenticate('jwt', { session: false }),
-  samagriRoutes,
-);
+app.use('/api/samagri', passport.authenticate('jwt', {session: false}), samagriRoutes);
 
-app.use(
-  '/api/booking_samagri_mappings',
-  passport.authenticate('jwt', { session: false }),
-  booking_samagri_mappingsRoutes,
-);
+app.use('/api/booking_samagri_mappings', passport.authenticate('jwt', {session: false}), booking_samagri_mappingsRoutes);
 
-app.use(
-  '/api/bookings',
-  passport.authenticate('jwt', { session: false }),
-  bookingsRoutes,
-);
+app.use('/api/bookings', passport.authenticate('jwt', {session: false}), bookingsRoutes);
 
-const publicDir = path.join(__dirname, '../public');
+const publicDir = path.join(
+  __dirname,
+  '../public',
+);
 
 if (fs.existsSync(publicDir)) {
   app.use('/', express.static(publicDir));
 
-  app.get('*', function (request, response) {
-    response.sendFile(path.resolve(publicDir, 'index.html'));
+  app.get('*', function(request, response) {
+    response.sendFile(
+      path.resolve(publicDir, 'index.html'),
+    );
   });
 }
 

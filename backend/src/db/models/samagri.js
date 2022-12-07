@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   const samagri = sequelize.define(
     'samagri',
     {
@@ -14,37 +14,58 @@ module.exports = function (sequelize, DataTypes) {
         primaryKey: true,
       },
 
-      name: {
+name: {
         type: DataTypes.TEXT,
+
       },
 
-      description: {
+description: {
         type: DataTypes.TEXT,
+
       },
 
-      standard_qty: {
+standard_qty: {
         type: DataTypes.INTEGER,
+
       },
 
-      qty_units: {
+qty_units: {
         type: DataTypes.ENUM,
 
-        values: ['kg', 'no(s)', 'ml', 'gms', 'dozens', 'other'],
+        values: [
+
+"kg",
+
+"no(s)",
+
+"ml",
+
+"gms",
+
+"dozens",
+
+"other"
+
+        ],
+
       },
 
-      price_standard_qty: {
+price_standard_qty: {
         type: DataTypes.INTEGER,
+
       },
 
-      karishye_provided: {
+karishye_provided: {
         type: DataTypes.BOOLEAN,
 
         allowNull: false,
         defaultValue: false,
+
       },
 
-      units_in_stock: {
+units_in_stock: {
         type: DataTypes.INTEGER,
+
       },
 
       importHash: {
@@ -61,6 +82,7 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   samagri.associate = (db) => {
+
     db.samagri.belongsTo(db.users, {
       as: 'createdBy',
     });
@@ -72,3 +94,4 @@ module.exports = function (sequelize, DataTypes) {
 
   return samagri;
 };
+

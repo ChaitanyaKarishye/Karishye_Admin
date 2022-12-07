@@ -1,3 +1,4 @@
+
 const db = require('../models');
 const FileDBApi = require('./file');
 const crypto = require('crypto');
@@ -7,62 +8,119 @@ const Sequelize = db.Sequelize;
 const Op = Sequelize.Op;
 
 module.exports = class Pujari_applicationsDBApi {
+
   static async create(data, options) {
-    const currentUser = (options && options.currentUser) || { id: null };
-    const transaction = (options && options.transaction) || undefined;
+  const currentUser = (options && options.currentUser) || { id: null };
+  const transaction = (options && options.transaction) || undefined;
 
-    const pujari_applications = await db.pujari_applications.create(
-      {
-        id: data.id || undefined,
+  const pujari_applications = await db.pujari_applications.create(
+  {
+  id: data.id || undefined,
 
-        name: data.name || null,
-        surname: data.surname || null,
-        date_of_birth: data.date_of_birth || null,
-        qualification: data.qualification || null,
-        experience_yrs: data.experience_yrs || null,
-        address: data.address || null,
-        email_id: data.email_id || null,
-        phone_number: data.phone_number || null,
-        gender: data.gender || null,
-        application_status: data.application_status || null,
-        language: data.language || null,
-        online_pujas: data.online_pujas || false,
+    name: data.name
+    ||
+    null
+,
 
-        travel: data.travel || false,
+    surname: data.surname
+    ||
+    null
+,
 
-        city: data.city || null,
-        importHash: data.importHash || null,
-        createdById: currentUser.id,
-        updatedById: currentUser.id,
-      },
-      { transaction },
+    date_of_birth: data.date_of_birth
+    ||
+    null
+,
+
+    qualification: data.qualification
+    ||
+    null
+,
+
+    experience_yrs: data.experience_yrs
+    ||
+    null
+,
+
+    address: data.address
+    ||
+    null
+,
+
+    email_id: data.email_id
+    ||
+    null
+,
+
+    phone_number: data.phone_number
+    ||
+    null
+,
+
+    gender: data.gender
+    ||
+    null
+,
+
+    application_status: data.application_status
+    ||
+    null
+,
+
+    language: data.language
+    ||
+    null
+,
+
+    online_pujas: data.online_pujas
+    ||
+    false
+
+,
+
+    travel: data.travel
+    ||
+    false
+
+,
+
+    city: data.city
+    ||
+    null
+,
+
+  importHash: data.importHash || null,
+  createdById: currentUser.id,
+  updatedById: currentUser.id,
+  },
+  { transaction },
+  );
+
+    await FileDBApi.replaceRelationFiles(
+    {
+    belongsTo: db.pujari_applications.getTableName(),
+    belongsToColumn: 'photo',
+    belongsToId: pujari_applications.id,
+    },
+    data.photo,
+    options,
     );
 
     await FileDBApi.replaceRelationFiles(
-      {
-        belongsTo: db.pujari_applications.getTableName(),
-        belongsToColumn: 'photo',
-        belongsToId: pujari_applications.id,
-      },
-      data.photo,
-      options,
+    {
+    belongsTo: db.pujari_applications.getTableName(),
+    belongsToColumn: 'video',
+    belongsToId: pujari_applications.id,
+    },
+    data.video,
+    options,
     );
 
-    await FileDBApi.replaceRelationFiles(
-      {
-        belongsTo: db.pujari_applications.getTableName(),
-        belongsToColumn: 'video',
-        belongsToId: pujari_applications.id,
-      },
-      data.video,
-      options,
-    );
-
-    return pujari_applications;
+  return pujari_applications;
   }
 
   static async update(id, data, options) {
-    const currentUser = (options && options.currentUser) || { id: null };
+    const currentUser = (options && options.currentUser) || {id: null};
     const transaction = (options && options.transaction) || undefined;
 
     const pujari_applications = await db.pujari_applications.findByPk(id, {
@@ -71,25 +129,82 @@ module.exports = class Pujari_applicationsDBApi {
 
     await pujari_applications.update(
       {
-        name: data.name || null,
-        surname: data.surname || null,
-        date_of_birth: data.date_of_birth || null,
-        qualification: data.qualification || null,
-        experience_yrs: data.experience_yrs || null,
-        address: data.address || null,
-        email_id: data.email_id || null,
-        phone_number: data.phone_number || null,
-        gender: data.gender || null,
-        application_status: data.application_status || null,
-        language: data.language || null,
-        online_pujas: data.online_pujas || false,
 
-        travel: data.travel || false,
+        name: data.name
+        ||
+        null
+,
 
-        city: data.city || null,
+        surname: data.surname
+        ||
+        null
+,
+
+        date_of_birth: data.date_of_birth
+        ||
+        null
+,
+
+        qualification: data.qualification
+        ||
+        null
+,
+
+        experience_yrs: data.experience_yrs
+        ||
+        null
+,
+
+        address: data.address
+        ||
+        null
+,
+
+        email_id: data.email_id
+        ||
+        null
+,
+
+        phone_number: data.phone_number
+        ||
+        null
+,
+
+        gender: data.gender
+        ||
+        null
+,
+
+        application_status: data.application_status
+        ||
+        null
+,
+
+        language: data.language
+        ||
+        null
+,
+
+        online_pujas: data.online_pujas
+        ||
+        false
+
+,
+
+        travel: data.travel
+        ||
+        false
+
+,
+
+        city: data.city
+        ||
+        null
+,
+
         updatedById: currentUser.id,
       },
-      { transaction },
+      {transaction},
     );
 
     await FileDBApi.replaceRelationFiles(
@@ -116,25 +231,19 @@ module.exports = class Pujari_applicationsDBApi {
   }
 
   static async remove(id, options) {
-    const currentUser = (options && options.currentUser) || { id: null };
+    const currentUser = (options && options.currentUser) || {id: null};
     const transaction = (options && options.transaction) || undefined;
 
-    const pujari_applications = await db.pujari_applications.findByPk(
-      id,
-      options,
-    );
+    const pujari_applications = await db.pujari_applications.findByPk(id, options);
 
-    await pujari_applications.update(
-      {
-        deletedBy: currentUser.id,
-      },
-      {
-        transaction,
-      },
-    );
+    await pujari_applications.update({
+      deletedBy: currentUser.id
+    }, {
+      transaction,
+    });
 
     await pujari_applications.destroy({
-      transaction,
+      transaction
     });
 
     return pujari_applications;
@@ -152,14 +261,14 @@ module.exports = class Pujari_applicationsDBApi {
       return pujari_applications;
     }
 
-    const output = pujari_applications.get({ plain: true });
+    const output = pujari_applications.get({plain: true});
 
     output.photo = await pujari_applications.getPhoto({
-      transaction,
+      transaction
     });
 
     output.video = await pujari_applications.getVideo({
-      transaction,
+      transaction
     });
 
     return output;
@@ -177,6 +286,7 @@ module.exports = class Pujari_applicationsDBApi {
     const transaction = (options && options.transaction) || undefined;
     let where = {};
     let include = [
+
       {
         model: db.file,
         as: 'photo',
@@ -186,6 +296,7 @@ module.exports = class Pujari_applicationsDBApi {
         model: db.file,
         as: 'video',
       },
+
     ];
 
     if (filter) {
@@ -199,7 +310,11 @@ module.exports = class Pujari_applicationsDBApi {
       if (filter.name) {
         where = {
           ...where,
-          [Op.and]: Utils.ilike('pujari_applications', 'name', filter.name),
+          [Op.and]: Utils.ilike(
+            'pujari_applications',
+            'name',
+            filter.name,
+          ),
         };
       }
 
@@ -261,7 +376,11 @@ module.exports = class Pujari_applicationsDBApi {
       if (filter.city) {
         where = {
           ...where,
-          [Op.and]: Utils.ilike('pujari_applications', 'city', filter.city),
+          [Op.and]: Utils.ilike(
+            'pujari_applications',
+            'city',
+            filter.city,
+          ),
         };
       }
 
@@ -321,7 +440,9 @@ module.exports = class Pujari_applicationsDBApi {
       ) {
         where = {
           ...where,
-          active: filter.active === true || filter.active === 'true',
+          active:
+            filter.active === true ||
+            filter.active === 'true',
         };
       }
 
@@ -385,23 +506,24 @@ module.exports = class Pujari_applicationsDBApi {
       }
     }
 
-    let { rows, count } = await db.pujari_applications.findAndCountAll({
-      where,
-      include,
-      distinct: true,
-      limit: limit ? Number(limit) : undefined,
-      offset: offset ? Number(offset) : undefined,
-      order:
-        filter.field && filter.sort
+    let { rows, count } = await db.pujari_applications.findAndCountAll(
+      {
+        where,
+        include,
+        distinct: true,
+        limit: limit ? Number(limit) : undefined,
+        offset: offset ? Number(offset) : undefined,
+        order: (filter.field && filter.sort)
           ? [[filter.field, filter.sort]]
           : [['createdAt', 'desc']],
-      transaction,
-    });
+        transaction,
+      },
+    );
 
-    //    rows = await this._fillWithRelationsAndFilesForRows(
-    //      rows,
-    //      options,
-    //    );
+//    rows = await this._fillWithRelationsAndFilesForRows(
+//      rows,
+//      options,
+//    );
 
     return { rows, count };
   }
@@ -413,13 +535,17 @@ module.exports = class Pujari_applicationsDBApi {
       where = {
         [Op.or]: [
           { ['id']: Utils.uuid(query) },
-          Utils.ilike('pujari_applications', 'id', query),
+          Utils.ilike(
+            'pujari_applications',
+            'id',
+            query,
+          ),
         ],
       };
     }
 
     const records = await db.pujari_applications.findAll({
-      attributes: ['id', 'id'],
+      attributes: [ 'id', 'id' ],
       where,
       limit: limit ? Number(limit) : undefined,
       orderBy: [['id', 'ASC']],
@@ -430,4 +556,6 @@ module.exports = class Pujari_applicationsDBApi {
       label: record.id,
     }));
   }
+
 };
+

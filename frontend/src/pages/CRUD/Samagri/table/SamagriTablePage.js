@@ -7,6 +7,6 @@ const SamagriTablePage = () => {
       <SamagriTable />
     </div>
   );
-};
+}
 
 export default SamagriTablePage;

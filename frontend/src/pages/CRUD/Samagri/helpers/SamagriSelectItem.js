@@ -50,7 +50,10 @@ const SamagriSelectItem = (props) => {
     },
   };
 
-  const { form, ...rest } = props;
+  const {
+    form,
+    ...rest
+  } = props;
 
   return (
     <React.Fragment>
@@ -63,10 +66,12 @@ const SamagriSelectItem = (props) => {
       />
     </React.Fragment>
   );
-};
+}
 
 const select = (state) => ({
-  hasPermissionToCreate: state.samagri.hasPermissionToCreate,
+  hasPermissionToCreate: state.samagri.hasPermissionToCreate
 });
 
-export default connect(select)(SamagriSelectItem);
+export default connect(select)(
+  SamagriSelectItem,
+);

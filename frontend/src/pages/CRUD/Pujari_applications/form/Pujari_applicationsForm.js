@@ -26,221 +26,232 @@ import FormValidations from 'components/FormItems/formValidations';
 import Widget from 'components/Widget';
 
 const Pujari_applicationsForm = (props) => {
+
   const {
-    isEditing,
-    isProfile,
-    findLoading,
-    saveLoading,
-    record,
-    onSubmit,
-    onCancel,
-    modal,
+  isEditing,
+  isProfile,
+  findLoading,
+  saveLoading,
+  record,
+  onSubmit,
+  onCancel,
+  modal
   } = props;
 
   const iniValues = () => {
-    return IniValues(pujari_applicationsFields, record || {});
-  };
+  return IniValues(pujari_applicationsFields, record || {});
+  }
 
   const formValidations = () => {
-    return FormValidations(pujari_applicationsFields, record || {});
-  };
+  return FormValidations(pujari_applicationsFields, record || {});
+  }
 
   const handleSubmit = (values) => {
-    const { id, ...data } = PreparedValues(
-      pujari_applicationsFields,
-      values || {},
-    );
-    onSubmit(id, data);
+  const { id, ...data } = PreparedValues(pujari_applicationsFields, values || {});
+  onSubmit(id, data);
   };
 
   const title = () => {
-    if (isProfile) {
-      return 'Edit My Profile';
-    }
+  if(isProfile) {
+  return 'Edit My Profile';
+  }
 
-    return isEditing ? 'Edit Pujari_applications' : 'Add Pujari_applications';
+  return isEditing
+  ? 'Edit Pujari_applications'
+  : 'Add Pujari_applications';
   };
 
   const renderForm = () => (
-    <Widget title={<h4>{title()}</h4>} collapse close>
-      <Formik
-        onSubmit={handleSubmit}
-        initialValues={iniValues()}
-        validationSchema={formValidations()}
+  <Widget title={<h4>{title()}</h4>} collapse close>
+  <Formik
+          onSubmit={handleSubmit}
+  initialValues={iniValues()}
+  validationSchema={formValidations()}
+  >
+  {(form) => (
+  <form onSubmit={form.handleSubmit}>
+    <Grid container spacing={3} direction="column">
+
+      <Grid item>
+        <InputFormItem
+          name={'name'}
+          schema={pujari_applicationsFields}
+
+            autoFocus
+
+        />
+      </Grid>
+
+      <Grid item>
+        <InputFormItem
+          name={'surname'}
+          schema={pujari_applicationsFields}
+
+        />
+      </Grid>
+
+      <Grid item>
+        <DatePickerFormItem
+          name={'date_of_birth'}
+          schema={pujari_applicationsFields}
+          showTimeInput
+        />
+      </Grid>
+
+      <Grid item>
+        <InputFormItem
+          multiline
+          wysiwyg
+          name={'qualification'}
+          schema={pujari_applicationsFields}
+
+        />
+      </Grid>
+
+      <Grid item>
+        <InputFormItem
+          name={'experience_yrs'}
+          schema={pujari_applicationsFields}
+        />
+      </Grid>
+
+      <Grid item>
+        <InputFormItem
+          multiline
+          wysiwyg
+          name={'address'}
+          schema={pujari_applicationsFields}
+
+        />
+      </Grid>
+
+      <Grid item>
+        <InputFormItem
+          name={'email_id'}
+          schema={pujari_applicationsFields}
+
+        />
+      </Grid>
+
+      <Grid item>
+        <InputFormItem
+          name={'phone_number'}
+          schema={pujari_applicationsFields}
+
+        />
+      </Grid>
+
+      <Grid item>
+        <ImagesFormItem
+          name={'photo'}
+          schema={pujari_applicationsFields}
+          path={'pujari_applications/photo'}
+          fileProps={{
+          size: undefined,
+          formats: undefined,
+          }}
+          max={undefined}
+        />
+      </Grid>
+
+      <Grid item>
+        <FilesFormItem
+          name={'video'}
+          schema={pujari_applicationsFields}
+          path={'pujari_applications/video'}
+          fileProps={{
+          size: undefined,
+          formats: undefined,
+          }}
+          max={undefined}
+        />
+      </Grid>
+
+      <Grid item>
+        <RadioFormItem
+          name={'gender'}
+          schema={pujari_applicationsFields}
+        />
+      </Grid>
+
+      <Grid item>
+        <RadioFormItem
+          name={'application_status'}
+          schema={pujari_applicationsFields}
+        />
+      </Grid>
+
+      <Grid item>
+        <RadioFormItem
+          name={'language'}
+          schema={pujari_applicationsFields}
+        />
+      </Grid>
+
+      <Grid item>
+        <SwitchFormItem
+          name={'online_pujas'}
+          schema={pujari_applicationsFields}
+        />
+      </Grid>
+
+      <Grid item>
+        <SwitchFormItem
+          name={'travel'}
+          schema={pujari_applicationsFields}
+        />
+      </Grid>
+
+      <Grid item>
+        <InputFormItem
+          name={'city'}
+          schema={pujari_applicationsFields}
+
+        />
+      </Grid>
+
+  </Grid>
+  <Grid container spacing={3} mt={2}>
+    <Grid item>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={form.handleSubmit}
       >
-        {(form) => (
-          <form onSubmit={form.handleSubmit}>
-            <Grid container spacing={3} direction='column'>
-              <Grid item>
-                <InputFormItem
-                  name={'name'}
-                  schema={pujari_applicationsFields}
-                  autoFocus
-                />
-              </Grid>
-
-              <Grid item>
-                <InputFormItem
-                  name={'surname'}
-                  schema={pujari_applicationsFields}
-                />
-              </Grid>
-
-              <Grid item>
-                <DatePickerFormItem
-                  name={'date_of_birth'}
-                  schema={pujari_applicationsFields}
-                  showTimeInput
-                />
-              </Grid>
-
-              <Grid item>
-                <InputFormItem
-                  multiline
-                  wysiwyg
-                  name={'qualification'}
-                  schema={pujari_applicationsFields}
-                />
-              </Grid>
-
-              <Grid item>
-                <InputFormItem
-                  name={'experience_yrs'}
-                  schema={pujari_applicationsFields}
-                />
-              </Grid>
-
-              <Grid item>
-                <InputFormItem
-                  multiline
-                  wysiwyg
-                  name={'address'}
-                  schema={pujari_applicationsFields}
-                />
-              </Grid>
-
-              <Grid item>
-                <InputFormItem
-                  name={'email_id'}
-                  schema={pujari_applicationsFields}
-                />
-              </Grid>
-
-              <Grid item>
-                <InputFormItem
-                  name={'phone_number'}
-                  schema={pujari_applicationsFields}
-                />
-              </Grid>
-
-              <Grid item>
-                <ImagesFormItem
-                  name={'photo'}
-                  schema={pujari_applicationsFields}
-                  path={'pujari_applications/photo'}
-                  fileProps={{
-                    size: undefined,
-                    formats: undefined,
-                  }}
-                  max={undefined}
-                />
-              </Grid>
-
-              <Grid item>
-                <FilesFormItem
-                  name={'video'}
-                  schema={pujari_applicationsFields}
-                  path={'pujari_applications/video'}
-                  fileProps={{
-                    size: undefined,
-                    formats: undefined,
-                  }}
-                  max={undefined}
-                />
-              </Grid>
-
-              <Grid item>
-                <RadioFormItem
-                  name={'gender'}
-                  schema={pujari_applicationsFields}
-                />
-              </Grid>
-
-              <Grid item>
-                <RadioFormItem
-                  name={'application_status'}
-                  schema={pujari_applicationsFields}
-                />
-              </Grid>
-
-              <Grid item>
-                <RadioFormItem
-                  name={'language'}
-                  schema={pujari_applicationsFields}
-                />
-              </Grid>
-
-              <Grid item>
-                <SwitchFormItem
-                  name={'online_pujas'}
-                  schema={pujari_applicationsFields}
-                />
-              </Grid>
-
-              <Grid item>
-                <SwitchFormItem
-                  name={'travel'}
-                  schema={pujari_applicationsFields}
-                />
-              </Grid>
-
-              <Grid item>
-                <InputFormItem
-                  name={'city'}
-                  schema={pujari_applicationsFields}
-                />
-              </Grid>
-            </Grid>
-            <Grid container spacing={3} mt={2}>
-              <Grid item>
-                <Button
-                  color='primary'
-                  variant='contained'
-                  onClick={form.handleSubmit}
-                >
-                  Save
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  color='primary'
-                  variant='outlined'
-                  onClick={form.handleReset}
-                >
-                  Reset
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  color='primary'
-                  variant='outlined'
-                  onClick={() => onCancel()}
-                >
-                  Cancel
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-        )}
-      </Formik>
-    </Widget>
+        Save
+      </Button>
+    </Grid>
+    <Grid item>
+      <Button
+        color="primary"
+        variant="outlined"
+        onClick={form.handleReset}
+      >
+        Reset
+      </Button>
+    </Grid>
+    <Grid item>
+      <Button
+        color="primary"
+        variant="outlined"
+        onClick={() => onCancel()}
+      >
+        Cancel
+      </Button>
+    </Grid>
+  </Grid>
+      </form>
+      )
+      }
+    </Formik>
+  </Widget>
   );
   if (findLoading) {
-    return <Loader />;
+  return <Loader />;
   }
   if (isEditing && !record) {
-    return <Loader />;
+  return <Loader />;
   }
   return renderForm();
-};
-export default Pujari_applicationsForm;
+  }
+  export default Pujari_applicationsForm;

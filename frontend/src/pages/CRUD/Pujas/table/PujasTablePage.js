@@ -7,6 +7,6 @@ const PujasTablePage = () => {
       <PujasTable />
     </div>
   );
-};
+}
 
 export default PujasTablePage;

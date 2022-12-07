@@ -17,14 +17,14 @@ const actions = {
         type: 'KARUSERS_FORM_FIND_STARTED',
       });
 
-      axios.get(`/karusers/${id}`).then((res) => {
+      axios.get(`/karusers/${id}`).then(res => {
         const record = res.data;
 
         dispatch({
           type: 'KARUSERS_FORM_FIND_SUCCESS',
           payload: record,
         });
-      });
+      })
     } catch (error) {
       Errors.handle(error);
 
@@ -42,13 +42,13 @@ const actions = {
         type: 'KARUSERS_FORM_CREATE_STARTED',
       });
 
-      axios.post('/karusers', { data: values }).then((res) => {
+      axios.post('/karusers', { data: values }).then(res => {
         dispatch({
           type: 'KARUSERS_FORM_CREATE_SUCCESS',
         });
         showSnackbar({ type: 'success', message: 'Karusers created' });
         dispatch(push('/admin/karusers'));
-      });
+      })
     } catch (error) {
       Errors.handle(error);
 
@@ -58,13 +58,16 @@ const actions = {
     }
   },
 
-  doUpdate: (id, values, isProfile) => async (dispatch, getState) => {
+  doUpdate: (id, values, isProfile) => async (
+    dispatch,
+    getState,
+  ) => {
     try {
       dispatch({
         type: 'KARUSERS_FORM_UPDATE_STARTED',
       });
 
-      await axios.put(`/karusers/${id}`, { id, data: values });
+      await axios.put(`/karusers/${id}`, {id, data: values});
 
       dispatch(doInit());
 

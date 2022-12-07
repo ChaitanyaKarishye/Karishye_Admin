@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   const karusers = sequelize.define(
     'karusers',
     {
@@ -14,42 +14,59 @@ module.exports = function (sequelize, DataTypes) {
         primaryKey: true,
       },
 
-      name: {
+name: {
         type: DataTypes.TEXT,
+
       },
 
-      surname: {
+surname: {
         type: DataTypes.TEXT,
+
       },
 
-      date_of_birth: {
+date_of_birth: {
         type: DataTypes.DATE,
+
       },
 
-      date_of_registration: {
+date_of_registration: {
         type: DataTypes.DATE,
+
       },
 
-      address: {
+address: {
         type: DataTypes.TEXT,
+
       },
 
-      gothram: {
+gothram: {
         type: DataTypes.TEXT,
+
       },
 
-      nakshatram: {
+nakshatram: {
         type: DataTypes.TEXT,
+
       },
 
-      email_id: {
+email_id: {
         type: DataTypes.TEXT,
+
       },
 
-      gender: {
+gender: {
         type: DataTypes.ENUM,
 
-        values: ['Male', 'Female', 'Other'],
+        values: [
+
+"Male",
+
+"Female",
+
+"Other"
+
+        ],
+
       },
 
       importHash: {
@@ -66,6 +83,7 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   karusers.associate = (db) => {
+
     db.karusers.belongsTo(db.users, {
       as: 'createdBy',
     });
@@ -77,3 +95,4 @@ module.exports = function (sequelize, DataTypes) {
 
   return karusers;
 };
+

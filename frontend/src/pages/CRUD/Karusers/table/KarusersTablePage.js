@@ -7,6 +7,6 @@ const KarusersTablePage = () => {
       <KarusersTable />
     </div>
   );
-};
+}
 
 export default KarusersTablePage;

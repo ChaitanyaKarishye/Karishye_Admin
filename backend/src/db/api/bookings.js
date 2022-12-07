@@ -1,3 +1,4 @@
+
 const db = require('../models');
 const FileDBApi = require('./file');
 const crypto = require('crypto');
@@ -7,39 +8,92 @@ const Sequelize = db.Sequelize;
 const Op = Sequelize.Op;
 
 module.exports = class BookingsDBApi {
+
   static async create(data, options) {
-    const currentUser = (options && options.currentUser) || { id: null };
-    const transaction = (options && options.transaction) || undefined;
+  const currentUser = (options && options.currentUser) || { id: null };
+  const transaction = (options && options.transaction) || undefined;
 
-    const bookings = await db.bookings.create(
-      {
-        id: data.id || undefined,
+  const bookings = await db.bookings.create(
+  {
+  id: data.id || undefined,
 
-        user_id: data.user_id || null,
-        pujari_id: data.pujari_id || null,
-        puja_id: data.puja_id || null,
-        notes: data.notes || null,
-        price: data.price || null,
-        event_type: data.event_type || null,
-        address: data.address || null,
-        start_date: data.start_date || null,
-        end_date: data.end_date || null,
-        duration_hrs: data.duration_hrs || null,
-        base_price: data.base_price || null,
-        final_price: data.final_price || null,
-        status: data.status || null,
-        importHash: data.importHash || null,
-        createdById: currentUser.id,
-        updatedById: currentUser.id,
-      },
-      { transaction },
-    );
+    user_id: data.user_id
+    ||
+    null
+,
 
-    return bookings;
+    pujari_id: data.pujari_id
+    ||
+    null
+,
+
+    puja_id: data.puja_id
+    ||
+    null
+,
+
+    notes: data.notes
+    ||
+    null
+,
+
+    price: data.price
+    ||
+    null
+,
+
+    event_type: data.event_type
+    ||
+    null
+,
+
+    address: data.address
+    ||
+    null
+,
+
+    start_date: data.start_date
+    ||
+    null
+,
+
+    end_date: data.end_date
+    ||
+    null
+,
+
+    duration_hrs: data.duration_hrs
+    ||
+    null
+,
+
+    base_price: data.base_price
+    ||
+    null
+,
+
+    final_price: data.final_price
+    ||
+    null
+,
+
+    status: data.status
+    ||
+    null
+,
+
+  importHash: data.importHash || null,
+  createdById: currentUser.id,
+  updatedById: currentUser.id,
+  },
+  { transaction },
+  );
+
+  return bookings;
   }
 
   static async update(id, data, options) {
-    const currentUser = (options && options.currentUser) || { id: null };
+    const currentUser = (options && options.currentUser) || {id: null};
     const transaction = (options && options.transaction) || undefined;
 
     const bookings = await db.bookings.findByPk(id, {
@@ -48,44 +102,94 @@ module.exports = class BookingsDBApi {
 
     await bookings.update(
       {
-        user_id: data.user_id || null,
-        pujari_id: data.pujari_id || null,
-        puja_id: data.puja_id || null,
-        notes: data.notes || null,
-        price: data.price || null,
-        event_type: data.event_type || null,
-        address: data.address || null,
-        start_date: data.start_date || null,
-        end_date: data.end_date || null,
-        duration_hrs: data.duration_hrs || null,
-        base_price: data.base_price || null,
-        final_price: data.final_price || null,
-        status: data.status || null,
+
+        user_id: data.user_id
+        ||
+        null
+,
+
+        pujari_id: data.pujari_id
+        ||
+        null
+,
+
+        puja_id: data.puja_id
+        ||
+        null
+,
+
+        notes: data.notes
+        ||
+        null
+,
+
+        price: data.price
+        ||
+        null
+,
+
+        event_type: data.event_type
+        ||
+        null
+,
+
+        address: data.address
+        ||
+        null
+,
+
+        start_date: data.start_date
+        ||
+        null
+,
+
+        end_date: data.end_date
+        ||
+        null
+,
+
+        duration_hrs: data.duration_hrs
+        ||
+        null
+,
+
+        base_price: data.base_price
+        ||
+        null
+,
+
+        final_price: data.final_price
+        ||
+        null
+,
+
+        status: data.status
+        ||
+        null
+,
+
         updatedById: currentUser.id,
       },
-      { transaction },
+      {transaction},
     );
 
     return bookings;
   }
 
   static async remove(id, options) {
-    const currentUser = (options && options.currentUser) || { id: null };
+    const currentUser = (options && options.currentUser) || {id: null};
     const transaction = (options && options.transaction) || undefined;
 
     const bookings = await db.bookings.findByPk(id, options);
 
-    await bookings.update(
-      {
-        deletedBy: currentUser.id,
-      },
-      {
-        transaction,
-      },
-    );
+    await bookings.update({
+      deletedBy: currentUser.id
+    }, {
+      transaction,
+    });
 
     await bookings.destroy({
-      transaction,
+      transaction
     });
 
     return bookings;
@@ -94,13 +198,16 @@ module.exports = class BookingsDBApi {
   static async findBy(where, options) {
     const transaction = (options && options.transaction) || undefined;
 
-    const bookings = await db.bookings.findOne({ where }, { transaction });
+    const bookings = await db.bookings.findOne(
+      { where },
+      { transaction },
+    );
 
     if (!bookings) {
       return bookings;
     }
 
-    const output = bookings.get({ plain: true });
+    const output = bookings.get({plain: true});
 
     return output;
   }
@@ -116,7 +223,9 @@ module.exports = class BookingsDBApi {
 
     const transaction = (options && options.transaction) || undefined;
     let where = {};
-    let include = [];
+    let include = [
+
+    ];
 
     if (filter) {
       if (filter.id) {
@@ -129,14 +238,22 @@ module.exports = class BookingsDBApi {
       if (filter.notes) {
         where = {
           ...where,
-          [Op.and]: Utils.ilike('bookings', 'notes', filter.notes),
+          [Op.and]: Utils.ilike(
+            'bookings',
+            'notes',
+            filter.notes,
+          ),
         };
       }
 
       if (filter.address) {
         where = {
           ...where,
-          [Op.and]: Utils.ilike('bookings', 'address', filter.address),
+          [Op.and]: Utils.ilike(
+            'bookings',
+            'address',
+            filter.address,
+          ),
         };
       }
 
@@ -364,7 +481,9 @@ module.exports = class BookingsDBApi {
       ) {
         where = {
           ...where,
-          active: filter.active === true || filter.active === 'true',
+          active:
+            filter.active === true ||
+            filter.active === 'true',
         };
       }
 
@@ -407,23 +526,24 @@ module.exports = class BookingsDBApi {
       }
     }
 
-    let { rows, count } = await db.bookings.findAndCountAll({
-      where,
-      include,
-      distinct: true,
-      limit: limit ? Number(limit) : undefined,
-      offset: offset ? Number(offset) : undefined,
-      order:
-        filter.field && filter.sort
+    let { rows, count } = await db.bookings.findAndCountAll(
+      {
+        where,
+        include,
+        distinct: true,
+        limit: limit ? Number(limit) : undefined,
+        offset: offset ? Number(offset) : undefined,
+        order: (filter.field && filter.sort)
           ? [[filter.field, filter.sort]]
           : [['createdAt', 'desc']],
-      transaction,
-    });
+        transaction,
+      },
+    );
 
-    //    rows = await this._fillWithRelationsAndFilesForRows(
-    //      rows,
-    //      options,
-    //    );
+//    rows = await this._fillWithRelationsAndFilesForRows(
+//      rows,
+//      options,
+//    );
 
     return { rows, count };
   }
@@ -435,13 +555,17 @@ module.exports = class BookingsDBApi {
       where = {
         [Op.or]: [
           { ['id']: Utils.uuid(query) },
-          Utils.ilike('bookings', 'id', query),
+          Utils.ilike(
+            'bookings',
+            'id',
+            query,
+          ),
         ],
       };
     }
 
     const records = await db.bookings.findAll({
-      attributes: ['id', 'id'],
+      attributes: [ 'id', 'id' ],
       where,
       limit: limit ? Number(limit) : undefined,
       orderBy: [['id', 'ASC']],
@@ -452,4 +576,6 @@ module.exports = class BookingsDBApi {
       label: record.id,
     }));
   }
+
 };
+
