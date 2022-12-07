@@ -11,6 +11,66 @@ module.exports = {
         const transaction = await queryInterface.sequelize.transaction();
         try {
 
+                    await queryInterface.createTable('users', {
+                        id: {
+                            type: Sequelize.DataTypes.UUID,
+                            defaultValue: Sequelize.DataTypes.UUIDV4,
+                            primaryKey: true,
+                        },
+                        createdById: {
+                            type: Sequelize.DataTypes.UUID,
+                            references: {
+                                key: 'id',
+                                model: 'users',
+                            },
+                        },
+                        updatedById: {
+                            type: Sequelize.DataTypes.UUID,
+                            references: {
+                                key: 'id',
+                                model: 'users',
+                            },
+                        },
+                        createdAt: { type: Sequelize.DataTypes.DATE },
+                        updatedAt: { type: Sequelize.DataTypes.DATE },
+                        deletedAt: { type: Sequelize.DataTypes.DATE },
+                        importHash: {
+                            type: Sequelize.DataTypes.STRING(255),
+                            allowNull: true,
+                            unique: true,
+                        },
+                    }, { transaction });
+
+                    await queryInterface.createTable('karusers', {
+                        id: {
+                            type: Sequelize.DataTypes.UUID,
+                            defaultValue: Sequelize.DataTypes.UUIDV4,
+                            primaryKey: true,
+                        },
+                        createdById: {
+                            type: Sequelize.DataTypes.UUID,
+                            references: {
+                                key: 'id',
+                                model: 'users',
+                            },
+                        },
+                        updatedById: {
+                            type: Sequelize.DataTypes.UUID,
+                            references: {
+                                key: 'id',
+                                model: 'users',
+                            },
+                        },
+                        createdAt: { type: Sequelize.DataTypes.DATE },
+                        updatedAt: { type: Sequelize.DataTypes.DATE },
+                        deletedAt: { type: Sequelize.DataTypes.DATE },
+                        importHash: {
+                            type: Sequelize.DataTypes.STRING(255),
+                            allowNull: true,
+                            unique: true,
+                        },
+                    }, { transaction });
+
                     await queryInterface.createTable('booking_participants', {
                         id: {
                             type: Sequelize.DataTypes.UUID,
@@ -250,6 +310,236 @@ module.exports = {
                             unique: true,
                         },
                     }, { transaction });
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'firstName',
+                      {
+                          type: Sequelize.DataTypes.TEXT,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'lastName',
+                      {
+                          type: Sequelize.DataTypes.TEXT,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'phoneNumber',
+                      {
+                          type: Sequelize.DataTypes.TEXT,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'email',
+                      {
+                          type: Sequelize.DataTypes.TEXT,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'role',
+                      {
+                          type: Sequelize.DataTypes.ENUM,
+
+                            values: ['admin','user'],
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'disabled',
+                      {
+                          type: Sequelize.DataTypes.BOOLEAN,
+
+                            defaultValue: false,
+                            allowNull: false,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'password',
+                      {
+                          type: Sequelize.DataTypes.TEXT,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'emailVerified',
+                      {
+                          type: Sequelize.DataTypes.BOOLEAN,
+
+                            defaultValue: false,
+                            allowNull: false,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'emailVerificationToken',
+                      {
+                          type: Sequelize.DataTypes.TEXT,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'emailVerificationTokenExpiresAt',
+                      {
+                          type: Sequelize.DataTypes.DATE,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'passwordResetToken',
+                      {
+                          type: Sequelize.DataTypes.TEXT,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'passwordResetTokenExpiresAt',
+                      {
+                          type: Sequelize.DataTypes.DATE,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'provider',
+                      {
+                          type: Sequelize.DataTypes.TEXT,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'type',
+                      {
+                          type: Sequelize.DataTypes.ENUM,
+
+                            values: ['SUPER_ADMIN','PRIEST'],
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'email_verified_at',
+                      {
+                          type: Sequelize.DataTypes.DATE,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'first_time_login',
+                      {
+                          type: Sequelize.DataTypes.INTEGER,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'forgot_password_token',
+                      {
+                          type: Sequelize.DataTypes.TEXT,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'remember_token',
+                      {
+                          type: Sequelize.DataTypes.TEXT,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'forgot_password_token_timestamp',
+                      {
+                          type: Sequelize.DataTypes.DATE,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'users',
+                      'is_active',
+                      {
+                          type: Sequelize.DataTypes.INTEGER,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'karusers',
+                      'name',
+                      {
+                          type: Sequelize.DataTypes.TEXT,
+
+                      },
+                      { transaction }
+                    );
+
+                    await queryInterface.addColumn(
+                      'karusers',
+                      'surname',
+                      {
+                          type: Sequelize.DataTypes.TEXT,
+
+                      },
+                      { transaction }
+                    );
 
                     await queryInterface.addColumn(
                       'karusers',
@@ -1443,6 +1733,138 @@ module.exports = {
                         { transaction }
                     );
 
+                    await queryInterface.removeColumn(
+                        'karusers',
+                        'surname',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'karusers',
+                        'name',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'is_active',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'forgot_password_token_timestamp',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'remember_token',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'forgot_password_token',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'first_time_login',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'email_verified_at',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'type',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'provider',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'passwordResetTokenExpiresAt',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'passwordResetToken',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'emailVerificationTokenExpiresAt',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'emailVerificationToken',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'emailVerified',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'password',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'disabled',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'role',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'email',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'phoneNumber',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'lastName',
+                        { transaction }
+                    );
+
+                    await queryInterface.removeColumn(
+                        'users',
+                        'firstName',
+                        { transaction }
+                    );
+
                     await queryInterface.dropTable('bookings', { transaction });
 
                     await queryInterface.dropTable('booking_samagri_mappings', { transaction });
@@ -1458,6 +1880,10 @@ module.exports = {
                     await queryInterface.dropTable('pujaris', { transaction });
 
                     await queryInterface.dropTable('booking_participants', { transaction });
+
+                    await queryInterface.dropTable('karusers', { transaction });
+
+                    await queryInterface.dropTable('users', { transaction });
 
             await transaction.commit();
         } catch (err) {
